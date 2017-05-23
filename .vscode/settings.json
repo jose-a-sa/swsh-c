@@ -1,0 +1,10 @@
+// Place your settings in this file to overwrite default and user settings.
+{
+    "files.exclude": {
+        "**/*.cmake": true,
+        "CMakeFiles/": true,
+        "CMakeTools/": true,
+        "Makefile": true,
+        "compile_commands.json": true
+    }
+}
