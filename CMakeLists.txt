@@ -7,22 +7,23 @@ PROJECT(superradiance)
 
 
 # Set all CXX variables
-SET(CMAKE_CXX_FLAGS "-std=c++11 -Wimplicit-function-declaration")
-
 
 # Set output directories
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/../lib)
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/../lib)
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/../bin)
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/../lib")
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/../lib")
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/../bin")
 
 
 # Set all include folders
 if(UNIX)
+    SET(CMAKE_CXX_FLAGS "-std=c++11 -Wimplicit-function-declaration")
     SET(OS_INCLUDE_DIRS "/usr/include" "/usr/local/include")
+    #SET(CMAKE_C_COMPILER "x86_64-w64-mingw32-gcc")
 elseif(WIN32)
+    SET(CMAKE_CXX_FLAGS "-posix -std=c++11 -Wimplicit-function-declaration")
     SET(OS_INCLUDE_DIRS "C:/MinGW/include")
 endif()
-INCLUDE_DIRECTORIES("include" ${OS_INCLUDE_DIRS})
+INCLUDE_DIRECTORIES("${CMAKE_BINARY_DIR}/../include" ${OS_INCLUDE_DIRS})
 
 
 # Project related variables
