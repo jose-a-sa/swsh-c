@@ -11,20 +11,19 @@
 
 int main(int argc, char **argv)
 {
-	long double x = 3.33L;
-	gsl_tensor3_long_double *t = gsl_tensor3_long_double_alloc(10, 10, 10);
-	uint64_t b = binomial(10,4);
+	FILE *f1;
+	ldouble_t d;
+	
+	f1 = fopen("data/Y011.csv", "w+");	
 
-	gsl_tensor3_long_double_set(t,2,3,5,2.1);
-
-	printf("%.12Lf\n", gsl_tensor3_long_double_get(t,2,3,5));
-	printf("%.12Lf\n", gsl_tensor3_long_double_get(t,0,0,0));
 	printf("%.12Lf\n", PI);
 	printf("%lu\n", sizeof(long double));
 	printf("%lu\n", sizeof(double));
-	printf("%Lu\n", b);
 
-	//system("pause");
+	for(d = -0.999999999999; d<0.99999999999; d+=0.001)
+		fprintf(f1,"%Lf, %Lf, %Lf\n", d, Yslm(1, 7, 2, d), YslmPrime(1, 7, 2, d));
+
+	fclose(f1);
 
 	return EXIT_SUCCESS;
 }

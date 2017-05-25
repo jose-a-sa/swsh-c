@@ -1,5 +1,7 @@
 #Project related
 bin/*
+**/*.nb
+data/*
 
 CMakeCache.txt
 CMakeFiles
