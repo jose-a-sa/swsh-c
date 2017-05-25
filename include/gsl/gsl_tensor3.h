@@ -1,5 +1,4 @@
 #include <gsl/gsl_block.h>
-#include <gsl/gsl_matrix.h>
 #include <gsl/gsl_errno.h>
 
 typedef struct

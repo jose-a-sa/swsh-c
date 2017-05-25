@@ -6,15 +6,13 @@ CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
 PROJECT(superradiance)
 
 
-# Set all CXX variables
-
 # Set output directories
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/../lib")
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/../lib")
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/../bin")
 
 
-# Set all include folders
+# OS specific variables
 if(UNIX)
     SET(CMAKE_CXX_FLAGS "-std=c++11 -Wimplicit-function-declaration")
     SET(OS_INCLUDE_DIRS "/usr/include" "/usr/local/include")
@@ -23,12 +21,14 @@ elseif(WIN32)
     SET(CMAKE_CXX_FLAGS "-posix -std=c++11 -Wimplicit-function-declaration")
     SET(OS_INCLUDE_DIRS "C:/MinGW/include")
 endif()
+
 INCLUDE_DIRECTORIES("${CMAKE_BINARY_DIR}/../include" ${OS_INCLUDE_DIRS})
 
 
-# Project related variables
+# Source related variables
 SET(TENSOR3_SRC
-    src/gsl_tensor3.c            
+    src/gsl_tensor3.c
+    src/gsl_tensor3_long_double.c           
 )
 SET(SWSH_SRC
     src/swsh.c

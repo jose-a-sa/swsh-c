@@ -47,7 +47,7 @@
                 "UNICODE"
             ],
             "browse": {
-                "path": [],
+                "path": ["c:/MinGW/include"],
                 "limitSymbolsToIncludedHeaders": true,
                 "databaseFilename": ""
             }

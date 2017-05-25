@@ -1,6 +1,5 @@
 #include <gsl/gsl_tensor3.h>
 #include <string.h>
-#include <stdint.h>
 
 gsl_tensor3 *gsl_tensor3_alloc(const size_t n1, const size_t n2, const size_t n3)
 {
@@ -12,7 +11,7 @@ gsl_tensor3 *gsl_tensor3_alloc(const size_t n1, const size_t n2, const size_t n3
 	else if (n2 == 0)
 		GSL_ERROR_VAL("tensor dimension n2 must be positive integer", GSL_EINVAL, 0);
 	else if (n3 == 0)
-		GSL_ERROR_VAL("tensor dimension n2 must be positive integer", GSL_EINVAL, 0);
+		GSL_ERROR_VAL("tensor dimension n3 must be positive integer", GSL_EINVAL, 0);
 
 	t = (gsl_tensor3 *)malloc(sizeof(gsl_tensor3));
 
@@ -38,7 +37,7 @@ gsl_tensor3 *gsl_tensor3_alloc(const size_t n1, const size_t n2, const size_t n3
 
 gsl_tensor3 *gsl_tensor3_calloc(const size_t n1, const size_t n2, const size_t n3)
 {
-	uint32_t i;
+	size_t i;
 
 	gsl_tensor3 * t = gsl_tensor3_alloc(n1, n2, n3);
 

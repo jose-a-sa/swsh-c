@@ -8,7 +8,7 @@
             "miDebuggerPath": "c:/MinGW/bin/gdb.exe",
             "program": "${workspaceRoot}/bin/swsh.exe",
             "args": [],
-            "stopAtEntry": true,
+            "stopAtEntry": false,
             "cwd": "${workspaceRoot}",
             "environment": [],
             "externalConsole": false,
