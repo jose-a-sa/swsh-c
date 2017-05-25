@@ -4,10 +4,9 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <consts.h>
 
-#include <gsl/gsl_tensor3_long_double.h>
 #include <funcs.h>
-
 
 int main(int argc, char **argv)
 {
@@ -17,7 +16,7 @@ int main(int argc, char **argv)
 	f1 = fopen("data/Y011.csv", "w+");	
 
 	printf("%.12Lf\n", PI);
-	printf("%lu\n", sizeof(long double));
+	printf("%lu\n", sizeof(ldouble_t));
 	printf("%lu\n", sizeof(double));
 
 	for(d = -0.999999999999; d<0.99999999999; d+=0.001)

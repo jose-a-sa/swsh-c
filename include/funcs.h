@@ -2,15 +2,13 @@
 #define FUNCS_H
 
 #include <stdint.h>
-#include <utils.h>
-
-#define PI 3.1415926535897932385L
+#include <consts.h>
 
 
-uint64_t factorial(int32_t);
-uint64_t binomial(int32_t, int32_t);
-ldouble_t Yslm(int32_t, int32_t, int32_t, ldouble_t);
-ldouble_t YslmPrime(int32_t, int32_t, int32_t, ldouble_t);
+uint64_t factorial(int);
+uint64_t binomial(int, int);
+ldouble_t Yslm(int, int, int, ldouble_t);
+ldouble_t YslmPrime(int, int, int, ldouble_t);
 
 
 #endif // FUNCS_H

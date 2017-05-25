@@ -3,7 +3,8 @@
 
 #include <gsl/gsl_errno.h>
 
-uint64_t factorial(int32_t n)
+
+uint64_t factorial(int n)
 {
     if (n == 0)
         return 1;
@@ -11,7 +12,7 @@ uint64_t factorial(int32_t n)
         GSL_ERROR("\nfactorial function input domain error.\n", GSL_EDOM);
     else
     {
-        uint32_t i;
+        int i;
         uint64_t p = 1;
         for (i = 1; i <= n; i++)
             p *= i;
@@ -19,7 +20,7 @@ uint64_t factorial(int32_t n)
     }
 }
 
-uint64_t binomial(int32_t n, int32_t r)
+uint64_t binomial(int n, int r)
 {
     if (n < 0 || r < 0 || r > n)
         return 0;
@@ -29,10 +30,10 @@ uint64_t binomial(int32_t n, int32_t r)
         return factorial(n) / (factorial(n - r) * factorial(r));
 }
 
-ldouble_t Yslm(int32_t s, int32_t l, int32_t m, ldouble_t x)
+ldouble_t Yslm(int s, int l, int m, ldouble_t x)
 {
     ldouble_t result, sum = 0;
-    int32_t r;
+    int r;
 
     for (r = 0; r <= l - s; r++)
         sum += binomial(l - s, r) * binomial(l + s, r + s - m) * powl(-1.0, l - r - s + m) * powl((1.0 + x) / (1.0 - x), r + (s - m) / 2.0);
@@ -44,8 +45,8 @@ ldouble_t Yslm(int32_t s, int32_t l, int32_t m, ldouble_t x)
 
 ldouble_t YslmPrime(int32_t s, int32_t l, int32_t m, ldouble_t x)
 {
-    ldouble_t result, sum = 0, theta = acosl(x);
-    int32_t r;
+    ldouble_t result, sum = 0;
+    int r;
 
     for (r = 0; r <= l - s; r++)
         sum += binomial(l - s, r) * binomial(l + s, r + s - m) * powl(-1.0, l - r - s + m + 1.0) * (l + m - 2.0 * r - s + l * x) * powl((1.0 + x) / (1.0 - x), r + (s - m) / 2.0) * powl((1.0 - x) / 2.0, l) / (1.0 - x * x);
