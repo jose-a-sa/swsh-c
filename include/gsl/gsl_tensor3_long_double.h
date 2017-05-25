@@ -1,5 +1,7 @@
+#ifndef GSL_TENSOR3_LONG_DOUBLE_H
+#define GSL_TENSOR3_LONG_DOUBLE_H
+
 #include <gsl/gsl_block_long_double.h>
-#include <gsl/gsl_errno.h>
 
 typedef struct
 {
@@ -19,3 +21,6 @@ void gsl_tensor3_long_double_set_zero(gsl_tensor3_long_double *);
 void gsl_tensor3_long_double_set_all(gsl_tensor3_long_double *, long double);
 void gsl_tensor3_long_double_set(gsl_tensor3_long_double *, const size_t, const size_t, const size_t, long double);
 long double gsl_tensor3_long_double_get(gsl_tensor3_long_double *, const size_t, const size_t, const size_t);
+
+
+#endif // GSL_TENSOR3_LONG_DOUBLE_H

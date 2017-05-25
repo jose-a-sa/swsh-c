@@ -1,3 +1,4 @@
+#include <gsl/gsl_errno.h>
 #include <gsl/gsl_tensor3_long_double.h>
 #include <string.h>
 

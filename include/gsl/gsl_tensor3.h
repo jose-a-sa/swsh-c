@@ -1,5 +1,7 @@
+#ifndef GSL_TENSOR3_H
+#define GSL_TENSOR3_H
+
 #include <gsl/gsl_block.h>
-#include <gsl/gsl_errno.h>
 
 typedef struct
 {
@@ -19,3 +21,6 @@ void gsl_tensor3_set_zero(gsl_tensor3 *);
 void gsl_tensor3_set_all(gsl_tensor3 *, double);
 void gsl_tensor3_set(gsl_tensor3 *, const size_t, const size_t, const size_t, double);
 double gsl_tensor3_get(gsl_tensor3 *, const size_t, const size_t, const size_t);
+
+
+#endif // GSL_TENSOR3_H

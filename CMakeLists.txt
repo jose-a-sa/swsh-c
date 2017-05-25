@@ -31,6 +31,7 @@ SET(TENSOR3_SRC
     src/gsl_tensor3_long_double.c           
 )
 SET(SWSH_SRC
+    src/funcs.c
     src/swsh.c
 )
 

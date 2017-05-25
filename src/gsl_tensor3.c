@@ -1,4 +1,5 @@
 #include <gsl/gsl_tensor3.h>
+#include <gsl/gsl_errno.h>
 #include <string.h>
 
 gsl_tensor3 *gsl_tensor3_alloc(const size_t n1, const size_t n2, const size_t n3)
