@@ -19,9 +19,6 @@ typedef gsl_vector_long_double* vector_t;
 #define PI 3.1415926535897932385L
 
 #define N_PTS 401
-
-#define kp fabsl(m+s)/2.0
-#define km fabsl(m-s)/2.0
-
+#define STEP 2.0/(N_PTS - 1)
 
 #endif // CONSTS_h
