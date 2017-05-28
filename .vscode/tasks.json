@@ -1,0 +1,20 @@
+{
+    "version": "0.1.0",
+    "command": "powershell",
+    "isShellCommand": true,
+    "args": ["-Command"],
+    "showOutput": "always",
+    "echoCommand": false,
+    "suppressTaskName": true,
+    "tasks": [
+        {
+            "taskName": "run",
+            "args": [
+                "cmake --build ${workspaceRoot}/build --target all --config Debug -- -j 10;",
+                "Write-Host \"`n `n\" -NoNewline;",
+                "bin/swsh.exe"
+            ],
+            "isBuildCommand": true
+        }
+    ]
+}

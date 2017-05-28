@@ -39,14 +39,15 @@
             "includePath": [
                 "${workspaceRoot}",
                 "c:/MinGW/include",
-                "C:/MinGW/lib/gcc/mingw32/5.3.0/include"
+                "C:/MinGW/lib/gcc/mingw32/5.3.0/include",
+                "${workspaceRoot}/include"
             ],
             "defines": [
                 "_DEBUG",
                 "UNICODE"
             ],
             "browse": {
-                "path": [],
+                "path": ["c:/MinGW/include"],
                 "limitSymbolsToIncludedHeaders": true,
                 "databaseFilename": ""
             }

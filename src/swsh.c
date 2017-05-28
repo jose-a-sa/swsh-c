@@ -1,20 +1,24 @@
+// fix to long float problem win MinGW
+#define __USE_MINGW_ANSI_STDIO 1
+
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdint.h>
 #include <math.h>
 
-#include <gsl/gsl_tensor3.h>
-#include <gsl/gsl_matrix.h>  
+#include <consts.h>
+#include <test.h>
+#include <funcs.h>
 
 int main(int argc, char **argv)
 {
-	double x = 3.33;
-	gsl_tensor3 *t = gsl_tensor3_alloc(10, 10, 10);
+	ldouble_t d;
 
-	gsl_tensor3_set(t,2,3,5,2.1);
-
-	printf("%f\n", gsl_tensor3_get(t,2,3,5));
-	printf("%f\n", gsl_tensor3_get(t,0,0,0));
+	printf("\nUNIT TESTS:\n");
+	test_atomic(1);
+	test_factorial(1);
+	test_binomial(1);
+	test_Yslm(1);
+	test_BC(1);
 
 	return EXIT_SUCCESS;
 }
