@@ -21,4 +21,8 @@ typedef gsl_vector_long_double* vector_t;
 #define N_PTS 401
 #define STEP 2.0/(N_PTS - 1)
 
+#define LEN(x)  (sizeof(x) / sizeof((x)[0]))
+
+#define MAX(a,b) ({ __typeof__ (a) _a = (a); __typeof__ (b) _b = (b); _a > _b ? _a : _b; })
+
 #endif // CONSTS_h

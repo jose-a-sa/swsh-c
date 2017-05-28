@@ -1,10 +1,7 @@
 # Specify the minimum CMAKE version required
 CMAKE_MINIMUM_REQUIRED(VERSION 3.0.0)
-PROJECT(superradiance VERSION 0.0.0)
+PROJECT(superradiance VERSION 0.0.2)
 
-
-INCLUDE(CTest)
-enable_testing()
 
 # Set output directories
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/../lib")
@@ -44,8 +41,3 @@ ADD_LIBRARY(gsl-tensor3 STATIC ${TENSOR3_SRC})
 # Sencodly build/link the execuatables (order is important)
 ADD_EXECUTABLE(swsh ${SWSH_SRC})
 TARGET_LINK_LIBRARIES(swsh gsl-tensor3 m gsl gslcblas)
-
-
-SET(CPACK_PROJECT_NAME ${PROJECT_NAME})
-SET(CPACK_PROJECT_VERSION ${PROJECT_VERSION})
-INCLUDE(CPack)

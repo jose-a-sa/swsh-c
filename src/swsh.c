@@ -1,6 +1,5 @@
 // fix to long float problem win MinGW
 #define __USE_MINGW_ANSI_STDIO 1
-// still sizeof(long double)=12
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -14,9 +13,12 @@ int main(int argc, char **argv)
 {
 	ldouble_t d;
 
-	test_atomic();
-	test_factorial();
-	test_binomial();
+	printf("\nUNIT TESTS:\n");
+	test_atomic(1);
+	test_factorial(1);
+	test_binomial(1);
+	test_Yslm(1);
+	test_BC(1);
 
 	return EXIT_SUCCESS;
 }

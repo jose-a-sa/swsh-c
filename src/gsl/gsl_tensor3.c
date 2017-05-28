@@ -1,3 +1,6 @@
+// fix to long long double problem with MinGW
+#define __USE_MINGW_ANSI_STDIO 1
+
 #include <gsl/gsl_tensor3.h>
 #include <gsl/gsl_errno.h>
 #include <string.h>

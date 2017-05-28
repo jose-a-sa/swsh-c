@@ -1,8 +1,13 @@
-#include <funcs.h>
+// fix to long long double problem with MinGW
+#define __USE_MINGW_ANSI_STDIO 1
+
 #include <math.h>
 #include <stdint.h>
 
 #include <gsl/gsl_errno.h>
+
+#include <consts.h>
+#include <funcs.h>
 
 uint64_t factorial(int n)
 {
@@ -19,22 +24,35 @@ uint64_t factorial(int n)
     }
 }
 
-uint64_t binomial(int n, int r)
+int64_t binomial(int n, int r)
 {
-    uint64_t result = 1;
-    if (n < 0 || r < 0 || r > n)
-        GSL_ERROR("\nbinomial function input domain error.\n", GSL_EDOM);
-    else if (r == 0 || r == n)
-        result=1;
+    if (r == 0 || r == n)
+        return 1;
+
+    if (n < 0)
+    {
+        if (r >= 0)
+            return (2 * ((r + 1) % 2) - 1) * binomial(-n + r - 1, r);
+        else if (r <= n)
+            return (2 * ((n - r + 1) % 2) - 1) * binomial(-r - 1, n - r);
+        else
+            return 0;
+    }
     else
-        result = factorial(n)/factorial(r)/factorial(n-r);
-        
-    return result;
+    {
+        if (r < 0 || r > n)
+            return 0;
+        else
+            return factorial(n) / factorial(r) / factorial(n - r);
+    }
 }
 
 ldouble_t Yslm(int s, int l, int m, ldouble_t x)
 {
-    ldouble_t result, sum = 0;
+    if (l < MAX(abs(s), abs(m)))
+        GSL_ERROR("\nYslm function s,l,m input error.\n", GSL_EDOM);
+
+    ldouble_t result, sum = 0.0;
     int r;
 
     for (r = 0; r <= l - s; r++)
@@ -45,8 +63,11 @@ ldouble_t Yslm(int s, int l, int m, ldouble_t x)
     return result;
 }
 
-ldouble_t YslmPrime(int32_t s, int32_t l, int32_t m, ldouble_t x)
+ldouble_t YslmPrime(int s, int l, int m, ldouble_t x)
 {
+    if (l < MAX(abs(s), abs(m)))
+        GSL_ERROR("\nYslmPrime function s,l,m input error.\n", GSL_EDOM);
+
     ldouble_t result, sum = 0;
     int r;
 
@@ -58,19 +79,40 @@ ldouble_t YslmPrime(int32_t s, int32_t l, int32_t m, ldouble_t x)
     return result;
 }
 
-ldouble_t BCp(int32_t s, int32_t l, int32_t m)
+ldouble_t BClimYp(int s, int l, int m)
 {
-    ldouble_t result = sqrtl((1.0 + 2.0 * l) / (4.0 * PI));
-    ldouble_t facs = sqrtl((factorial(m+l)*factorial(s+l))/(factorial(l-m)*factorial(l-s)));
+    if (l < MAX(abs(s), abs(m)))
+        GSL_ERROR("\nBClimYm function s,l,m input error.\n", GSL_EDOM);
 
-    if (m + s >= 0 && m >= s)
-        result *= powl(-1.0, m) * powl(2.0, -m) * facs / factorial(m + s);
-    else if (m + s >= 0 && m < s)
-        result *= powl(-1.0, m) * powl(2.0, -s) * facs / factorial(m + s);
-    else if (m + s < 0 && m >= s)
-        result *= powl(-1.0, s) * powl(2.0, s) / (facs * factorial(- m - s));
+    ldouble_t result;
+
+    if (m >= s && m + s >= 0)
+        result = powl(-1.0, m) * powl(2.0, -m) * sqrtl(((1.0 + 2.0 * l) * factorial(m + l) * factorial(s + l)) / (4.0 * PI * factorial(l - m) * factorial(l - s))) / factorial(m + s);
+    else if (m < s && m + s >= 0)
+        result = powl(-1.0, m) * powl(2.0, -s) * sqrtl(((1.0 + 2.0 * l) * factorial(m + l) * factorial(s + l)) / (4.0 * PI * factorial(l - m) * factorial(l - s))) / factorial(m + s);
+    else if (m >= s && m + s < 0)
+        result = powl(-1.0, s) * powl(2.0, s) * sqrtl(((1.0 + 2.0 * l) * factorial(-m + l) * factorial(-s + l)) / (4.0 * PI * factorial(l + m) * factorial(l + s))) / factorial(-m - s);
     else
-        result *= powl(-1.0, s) * powl(2.0, m) / (facs * factorial(- m - s));
+        result = powl(-1.0, s) * powl(2.0, m) * sqrtl(((1.0 + 2.0 * l) * factorial(-m + l) * factorial(-s + l)) / (4.0 * PI * factorial(l + m) * factorial(l + s))) / factorial(-m - s);
+
+    return result;
+}
+
+ldouble_t BClimYm(int s, int l, int m)
+{
+    if (l < MAX(abs(s), abs(m)))
+        GSL_ERROR("\nBClimYm function s,l,m input error.\n", GSL_EDOM);
+
+    ldouble_t result;
+
+    if (m >= s && m + s >= 0)
+        result = powl(-1.0, l) * powl(2.0, -m) * sqrtl(((1.0 + 2.0 * l) * factorial(m + l) * factorial(-s + l)) / (4.0 * PI * factorial(l - m) * factorial(l + s))) / factorial(m - s);
+    else if (m >= s && m + s < 0)
+        result = powl(-1.0, l) * powl(2.0, +s) * sqrtl(((1.0 + 2.0 * l) * factorial(m + l) * factorial(-s + l)) / (4.0 * PI * factorial(l - m) * factorial(l + s))) / factorial(m - s);
+    else if (m + s >= 0 && m < s)
+        result = powl(-1.0, m + s + l) * powl(2.0, -s) * sqrtl(((1.0 + 2.0 * l) * factorial(-m + l) * factorial(s + l)) / (4.0 * PI * factorial(l + m) * factorial(l - s))) / factorial(-m + s);
+    else
+        result = powl(-1.0, m + s + l) * powl(2.0, +m) * sqrtl(((1.0 + 2.0 * l) * factorial(-m + l) * factorial(s + l)) / (4.0 * PI * factorial(l + m) * factorial(l - s))) / factorial(-m + s);
 
     return result;
 }
