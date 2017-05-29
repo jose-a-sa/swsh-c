@@ -1,6 +1,6 @@
 void difeq(int k, int k1, int k2, int jsf, int is1, int isf, int ne, matrix_t D, matrix_t Y)
 {
-    ldouble_t xt, y0t, y1t, y2t, kp, km, alpha, beta, gamma;
+    real_t xt, y0t, y1t, y2t, kp, km, alpha, beta, gamma;
     kp = fabsl(m + s) / 2.0;
     km = fabsl(m - s) / 2.0;
 

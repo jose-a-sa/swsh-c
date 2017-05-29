@@ -5,7 +5,7 @@
 
 #include <consts.h>
 #include <test.h>
-#include <funcs.h>
+#include <diffeq.h>
 
 #define MAX_ERROR 0.00001
 
@@ -54,8 +54,8 @@ bool test_atomic(bool verbose)
 
     test_title("Size of atomic types", verbose);
 
-    test &= test_unit(sizeof(ldouble_t) == 16, "sizeof(long long double)==16", verbose);
-    test &= test_unit(sizeof(ldouble_t) >= 12, "sizeof(long long double)>=12", verbose);
+    test &= test_unit(sizeof(real_t) == 16, "sizeof(long long double)==16", verbose);
+    test &= test_unit(sizeof(real_t) >= 12, "sizeof(long long double)>=12", verbose);
 
     test_print(test, verbose);
     return test;
@@ -98,9 +98,9 @@ bool test_Yslm(bool verbose)
     const int s_test[] = { 1,  1, -4, -1};
     const int l_test[] = { 3,  6,  5,  3};
     const int m_test[] = { 2,  5,  2, -3};
-    ldouble_t x_test[] = {0.1, -0.2, 0.3, -0.4};
-    ldouble_t Y_value[] = {0.343445, 0.057114, -0.155762, -0.42492};
-    ldouble_t YPrime_value[] = {0.376269, -1.71342, 1.42068, -0.101171};
+    real_t x_test[] = {0.1, -0.2, 0.3, -0.4};
+    real_t Y_value[] = {0.343445, 0.057114, -0.155762, -0.42492};
+    real_t YPrime_value[] = {0.376269, -1.71342, 1.42068, -0.101171};
 
     test_title("Spin-Weighted Spherical Harmonics", verbose);
 
@@ -136,8 +136,8 @@ bool test_BC(bool verbose)
     const int s_test[] = { 1,  1, -4, -1};
     const int l_test[] = { 3,  6,  5,  3};
     const int m_test[] = { 2,  5,  2, -3};
-    ldouble_t BClimYp_value[] = {1.18009, -1.80754, 0.607692, -0.361326};
-    ldouble_t BClimYm_value[] = {-0.590044, 1.2911, -1.41795, -0.361326};
+    real_t BClimYp_value[] = {1.18009, -1.80754, 0.607692, -0.361326};
+    real_t BClimYm_value[] = {-0.590044, 1.2911, -1.41795, -0.361326};
 
     test_title("Boundary conditions", verbose);
 
