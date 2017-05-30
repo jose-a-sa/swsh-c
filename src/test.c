@@ -5,7 +5,7 @@
 
 #include <consts.h>
 #include <test.h>
-#include <diffeq.h>
+#include <swsh.h>
 
 #define MAX_ERROR 0.00001
 
@@ -136,8 +136,8 @@ bool test_BC(bool verbose)
     const int s_test[] = { 1,  1, -4, -1};
     const int l_test[] = { 3,  6,  5,  3};
     const int m_test[] = { 2,  5,  2, -3};
-    real_t BClimYp_value[] = {1.18009, -1.80754, 0.607692, -0.361326};
-    real_t BClimYm_value[] = {-0.590044, 1.2911, -1.41795, -0.361326};
+    real_t BClimZp_value[] = {1.18009, -1.80754, 0.607692, -0.361326};
+    real_t BClimZm_value[] = {-0.590044, 1.2911, -1.41795, -0.361326};
 
     test_title("Boundary conditions", verbose);
 
@@ -145,8 +145,8 @@ bool test_BC(bool verbose)
     for (i = 0; i < LEN(s_test); i++)
     {
         if (verbose) printf("\t");
-        sprintf(buf, "BClimYm(%2d,%2d,%2d)", s_test[i], l_test[i], m_test[i]);
-        check_buf = test_unit(fabsl(BClimYm(s_test[i], l_test[i], m_test[i]) / BClimYm_value[i] - 1) < MAX_ERROR, buf, verbose);
+        sprintf(buf, "BClimZm(%2d,%2d,%2d)", s_test[i], l_test[i], m_test[i]);
+        check_buf = test_unit(fabsl(BClimZm(s_test[i], l_test[i], m_test[i]) / BClimZm_value[i] - 1) < MAX_ERROR, buf, verbose);
         test &= check_buf;
     }
 
@@ -154,8 +154,8 @@ bool test_BC(bool verbose)
     for (i = 0; i < LEN(s_test); i++)
     {
         if (verbose) printf("\t");
-        sprintf(buf, "BClimYp(%2d,%2d,%2d)", s_test[i], l_test[i], m_test[i]);
-        check_buf &= test_unit(fabsl(BClimYp(s_test[i], l_test[i], m_test[i]) / BClimYp_value[i] - 1) < MAX_ERROR, buf, verbose);
+        sprintf(buf, "BClimZp(%2d,%2d,%2d)", s_test[i], l_test[i], m_test[i]);
+        check_buf &= test_unit(fabsl(BClimZp(s_test[i], l_test[i], m_test[i]) / BClimZp_value[i] - 1) < MAX_ERROR, buf, verbose);
         test &= check_buf;
     }
 
