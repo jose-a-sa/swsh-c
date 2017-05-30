@@ -5,13 +5,16 @@
 #include <stdlib.h>
 #include <math.h>
 
-#include <consts.h>
+#include <const.h>
 #include <test.h>
 #include <swsh.h>
 
 int main(int argc, char **argv)
 {
 	real_t d;
+	int i, j;
+
+	show_const();
 
 	printf("\nUNIT TESTS:\n");
 	test_atomic(1);
@@ -19,14 +22,17 @@ int main(int argc, char **argv)
 	test_binomial(1);
 	test_Yslm(1);
 	test_BC(1);
-
-	vector_t y = VECTOR_ALLOC(3);
-	VECTOR_SET(y,0,1.2);
-	VECTOR_SET(y,1,2.0);
-	VECTOR_SET(y,2,1.5);
 	
-	printf("\n%Lf\n", Dg(1, 2, y, 0.0, 1, 1, 1, 0.1) );
-	printf("%Lf\n", BCratioZp(-1, 1, 1, -2.0, 0.0));
+
+	matrix_t Y = MATRIX_ALLOC(N_EQS, N_PTS);
+	for (i = 0; i < N_EQS; i++)
+	{
+		for (j = 0; j < N_PTS; j++)
+			MATRIX_SET(Y, i, j, 1.0L * (i + 1) * (j + 1));
+	}
+
+	for (j = 0; j < N_PTS; j++)
+		printf("%Lf ", Sk(j, 1, 2, Y, -1, 1, 1, 0.1));
 
 	return EXIT_SUCCESS;
 }

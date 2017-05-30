@@ -22,6 +22,7 @@ typedef gsl_vector_long_double *vector_t;
 #define LEN(x) (sizeof(x) / sizeof((x)[0]))
 #define MAX(a, b) ({ __typeof__ (a) _a = (a); __typeof__ (b) _b = (b); _a > _b ? _a : _b; })
 #define MIN(a, b) ({ __typeof__ (a) _a = (a); __typeof__ (b) _b = (b); _a < _b ? _a : _b; })
+#define FRAC(a, b) ({ __typeof__ (a) _a = (a); __typeof__ (b) _b = (b); ((1.0L * _a)/(1.0L * _b)); })
 
 // Numerical contants
 #define PI 3.1415926535897932385L
@@ -35,6 +36,7 @@ typedef gsl_vector_long_double *vector_t;
 
 // Related to the relaxation method
 #define N_PTS 401
-#define STEP ((X_F - X_I) / (N_PTS - 1))
+#define STEP (1.0L * (X_F - X_I) / (N_PTS - 1))
+
 
 #endif // CONSTS_H

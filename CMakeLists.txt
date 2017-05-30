@@ -18,7 +18,7 @@ if(UNIX)
     #SET(CMAKE_C_COMPILER "x86_64-w64-mingw32-gcc")
 elseif(WIN32)
     SET(CMAKE_CXX_FLAGS "-posix -std=c++11 -Wimplicit-function-declaration")
-    SET(OS_INCLUDE_DIRS "C:/MinGW/include")    
+    SET(OS_INCLUDE_DIRS "c:/msys2/mingw64/include")    
 endif()
 
 INCLUDE_DIRECTORIES("${CMAKE_BINARY_DIR}/../include" ${OS_INCLUDE_DIRS})

@@ -15,5 +15,6 @@ bool test_factorial(bool);
 bool test_binomial(bool);
 bool test_Yslm(bool);
 bool test_BC(bool);
+void show_const();
 
 #endif // TEST_H

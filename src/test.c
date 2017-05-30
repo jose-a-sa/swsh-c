@@ -3,7 +3,7 @@
 
 #include <math.h>
 
-#include <consts.h>
+#include <const.h>
 #include <test.h>
 #include <swsh.h>
 
@@ -162,4 +162,15 @@ bool test_BC(bool verbose)
     test_print(test, verbose);
 
     return test;
+}
+
+void show_const()
+{
+    printf("DEFINED CONSTANTS:\n");
+
+    printf(" > Size of the mesh: %d\n", N_PTS);
+    printf(" > Mech configuration Xi, Xf, step: %Lf, %Lf, %Lf\n", 1.0L* X_I, 1.0L*X_F, STEP);
+
+    printf(" > Number of equations: %d\n", N_EQS);
+    printf(" > Boundary conditions at Xi, Xf: %d, %d\n", BC_I, BC_F);
 }

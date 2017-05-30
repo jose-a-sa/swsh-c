@@ -6,7 +6,7 @@
 
 #include <gsl/gsl_errno.h>
 
-#include <consts.h>
+#include <const.h>
 #include <swsh.h>
 
 uint64_t factorial(int n)
@@ -52,7 +52,7 @@ real_t Yslm(int s, int l, int m, real_t x)
     if (l < MAX(abs(s), abs(m)))
         GSL_ERROR("\nYslm function s,l,m input error.\n", GSL_EDOM);
 
-    real_t sum = 0.0;
+    real_t sum = 0.0L;
     int r;
 
     for (r = 0; r <= l - s; r++)
@@ -66,7 +66,7 @@ real_t YslmPrime(int s, int l, int m, real_t x)
     if (l < MAX(abs(s), abs(m)))
         GSL_ERROR("\nYslmPrime function s,l,m input error.\n", GSL_EDOM);
 
-    real_t sum = 0.0;
+    real_t sum = 0.0L;
     int r;
 
     for (r = 0; r <= l - s; r++)
@@ -117,7 +117,7 @@ real_t BCratioZm(int s, int l, int m, real_t A, real_t c)
     kp = fabsl(m + s) / 2.0;
     km = fabsl(m - s) / 2.0;
 
-    return -(A + powl(c,2.0) + 2.0*c*s - (km + kp - s)*(1.0 + km + kp + s))/(2.0 + 4.0*km);
+    return -(A + powl(c, 2.0) + 2.0 * c * s - (km + kp - s) * (1.0 + km + kp + s)) / (2.0 + 4.0 * km);
 }
 
 // Ratio of Zslm'(x)/Zslm(x) at x=+1
@@ -130,34 +130,34 @@ real_t BCratioZp(int s, int l, int m, real_t A, real_t c)
     kp = fabsl(m + s) / 2.0;
     km = fabsl(m - s) / 2.0;
 
-    return -(A + powl(c,2.0) - 2.0*c*s - (km + kp - s)*(1.0 + km + kp + s))/(2.0 + 4.0*kp);
+    return -(A + powl(c, 2.0) - 2.0 * c * s - (km + kp - s) * (1.0 + km + kp + s)) / (2.0 + 4.0 * kp);
 }
 
 // g contains all information about dif. equation: yi'=gi(x,y0,y1,..)
-real_t g(int j, vector_t y, real_t x, int s, int l, int m, real_t c)
+real_t g(int i, vector_t y, real_t x, int s, int l, int m, real_t c)
 {
-    if (j < 0 || j >= N_EQS || l < MAX(abs(s), abs(m)))
+    if (i < 0 || i >= N_EQS || l < MAX(abs(s), abs(m)))
         GSL_ERROR("\ng function input error.\n", GSL_EDOM);
 
     real_t result, kp, km;
     kp = fabsl(m + s) / 2.0;
     km = fabsl(m - s) / 2.0;
 
-    if (j == 0)
+    if (i == 0)
         result = VECTOR_GET(y, 1);
-    else if (j == 1)
+    else if (i == 1)
     {
         result = 2.0 * (kp - km + (1.0 + km + kp) * x) * VECTOR_GET(y, 1) + VECTOR_GET(y, 0) * ((km + kp) * (1.0 + km + kp) - powl(c * x, 2.0) + 2 * c * s * x - VECTOR_GET(y, 2) - s * (s + 1.0));
         result /= (1.0 - powl(x, 2.0));
     }
-    else if (j == 2)
-        result = 0.0;
+    else if (i == 2)
+        result = 0.0L;
 
     return result;
 }
 
 // jacobian of g
-real_t Dg(int j, int i, vector_t y, real_t x, int s, int l, int m, real_t c)
+real_t Dg(int i, int j, vector_t y, real_t x, int s, int l, int m, real_t c)
 {
     if (j < 0 || j >= N_EQS || i < 0 || i >= N_EQS || l < MAX(abs(s), abs(m)))
         GSL_ERROR("\ng function input error.\n", GSL_EDOM);
@@ -166,26 +166,76 @@ real_t Dg(int j, int i, vector_t y, real_t x, int s, int l, int m, real_t c)
     kp = fabsl(m + s) / 2.0;
     km = fabsl(m - s) / 2.0;
 
-    if (j == 0)
+    if (i == 0)
     {
-        if (i == 1)
-            result = 1.0;
+        if (j == 1)
+            result = 1.0l;
         else
-            result = 0.0;
+            result = 0.0L;
     }
-    else if (j == 1)
+    else if (i == 1)
     {
-        if (i == 0)
+        if (j == 0)
             result = (km + kp) * (1.0 + km + kp) - powl(c * x, 2.0) + 2 * c * s * x - VECTOR_GET(y, 2) - s * (s + 1.0);
-        else if (i == 1)
+        else if (j == 1)
             result = 2.0 * (kp - km + (1.0 + km + kp) * x);
-        else if (i == 2)
+        else if (j == 2)
             result = -VECTOR_GET(y, 0);
 
         result /= (1.0 - powl(x, 2.0));
     }
-    else if (j == 2)
-        result = 0.0;
+    else if (i == 2)
+        result = 0.0L;
 
     return result;
+}
+
+// E_k definition that gives "closeness" to a solution
+real_t Ek(int k, int i, matrix_t Y, int s, int l, int m, real_t c)
+{
+    if (k >= BC_I && k <= N_PTS - BC_F + 1)
+    {
+        int r;
+        real_t xk;
+        vector_t yk;
+        yk = VECTOR_ALLOC(N_EQS);
+
+        // Trapezoid method for x and y
+        xk = (k - 0.5) * STEP + X_I;
+        for (r = 0; r < N_EQS; r++)
+            VECTOR_SET(yk, r, (MATRIX_GET(Y, r, k - 1) + MATRIX_GET(Y, r, k)) / 2.0);
+
+        return MATRIX_GET(Y, i, k) - MATRIX_GET(Y, i, k - 1) - STEP * g(i, yk, xk, s, l, m, c);
+    }
+    else
+        return 0.0L;
+}
+
+// Concatenated matrix of the jacobian of E_k relative to y_{k-1} and y_{k}
+real_t Sk(int k, int i, int j, matrix_t Y, int s, int l, int m, real_t c)
+{
+    if (k >= BC_I && k <= N_PTS - BC_F + 1)
+    {
+        int r;
+        real_t xk, result;
+        vector_t yk;
+        yk = VECTOR_ALLOC(N_EQS);
+
+        // Trapezoid method for x and y
+        xk = (k - 0.5) * STEP + X_I;
+        for (r = 0; r < N_EQS; r++)
+            VECTOR_SET(yk, r, (MATRIX_GET(Y, r, k - 1) + MATRIX_GET(Y, r, k)) / 2.0);
+
+        // Internal mesh points
+        result = -0.5 * STEP * Dg(i, j % N_EQS, yk, xk, s, l, m, c);
+
+        if (i == j) // derivative relative to y_{k-1}
+            result += -1.0;
+        else if (i == j - N_EQS) // derivative relative to y_{k}
+            result += 1.0;
+
+        return result;
+    }
+    else
+        return 0.0L;
 }
