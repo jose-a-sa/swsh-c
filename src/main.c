@@ -25,7 +25,8 @@ int main(int argc, char **argv)
 	VECTOR_SET(y,1,2.0);
 	VECTOR_SET(y,2,1.5);
 	
-	printf("\n\n%Lf\n\n", Dg(1, 2, y, 0.0, 1, 1, 1, 0.1) );
+	printf("\n%Lf\n", Dg(1, 2, y, 0.0, 1, 1, 1, 0.1) );
+	printf("%Lf\n", BCratioZp(-1, 1, 1, -2.0, 0.0));
 
 	return EXIT_SUCCESS;
 }

@@ -15,6 +15,7 @@ real_t Ek(int k, int j, matrix_t Y, int s, int l, int m, real_t c)
     // Trapezoid method for x and y
     xk = (k - 0.5) * STEP + X_I; 
     yk = VECTOR_ALLOC(N_EQS);
+
     for (r = 0; r < N_EQS; r++)
         VECTOR_SET(yk, r, (MATRIX_GET(Y, r, k - 1) + MATRIX_GET(Y, r, k)) / 2.0);   
 
@@ -33,6 +34,7 @@ real_t Sk(int k, int j, int i, matrix_t Y, int s, int l, int m, real_t c)
     // Trapezoid method for x and y
     xk = (k - 0.5) * STEP + X_I; 
     yk = VECTOR_ALLOC(N_EQS);
+    
     for (r = 0; r < N_EQS; r++)
         VECTOR_SET(yk, r, (MATRIX_GET(Y, r, k - 1) + MATRIX_GET(Y, r, k)) / 2.0);    
 

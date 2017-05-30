@@ -12,7 +12,9 @@ real_t YslmPrime(int, int, int, real_t);
 
 real_t BClimZp(int, int, int);
 real_t BClimZm(int, int, int);
-real_t BCratioZp(int, int, int);
+
+real_t BCratioZp(int, int, int, real_t, real_t);
+real_t BCratioZm(int, int, int, real_t, real_t);
 
 real_t g(int, vector_t, real_t, int, int, int, real_t);
 real_t Dg(int, int, vector_t, real_t, int, int, int, real_t);

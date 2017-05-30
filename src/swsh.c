@@ -107,7 +107,33 @@ real_t BClimZm(int s, int l, int m)
         return powl(-1.0, m + s + l) * powl(2.0, +m) * sqrtl(((1.0 + 2.0 * l) * factorial(-m + l) * factorial(s + l)) / (4.0 * PI * factorial(l + m) * factorial(l - s))) / factorial(-m + s);
 }
 
-// g contains all information about dif. equation: yi'=gi(x,y0,y1,..) 
+// Ratio of Zslm'(x)/Zslm(x) at x=-1
+real_t BCratioZm(int s, int l, int m, real_t A, real_t c)
+{
+    if (l < MAX(abs(s), abs(m)))
+        GSL_ERROR("\nBCratioZm function s,l,m input error.\n", GSL_EDOM);
+
+    real_t kp, km;
+    kp = fabsl(m + s) / 2.0;
+    km = fabsl(m - s) / 2.0;
+
+    return -(A + powl(c,2.0) + 2.0*c*s - (km + kp - s)*(1.0 + km + kp + s))/(2.0 + 4.0*km);
+}
+
+// Ratio of Zslm'(x)/Zslm(x) at x=+1
+real_t BCratioZp(int s, int l, int m, real_t A, real_t c)
+{
+    if (l < MAX(abs(s), abs(m)))
+        GSL_ERROR("\nBCratioZp function s,l,m input error.\n", GSL_EDOM);
+
+    real_t kp, km;
+    kp = fabsl(m + s) / 2.0;
+    km = fabsl(m - s) / 2.0;
+
+    return -(A + powl(c,2.0) - 2.0*c*s - (km + kp - s)*(1.0 + km + kp + s))/(2.0 + 4.0*kp);
+}
+
+// g contains all information about dif. equation: yi'=gi(x,y0,y1,..)
 real_t g(int j, vector_t y, real_t x, int s, int l, int m, real_t c)
 {
     if (j < 0 || j >= N_EQS || l < MAX(abs(s), abs(m)))
