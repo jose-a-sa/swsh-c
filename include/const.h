@@ -38,5 +38,4 @@ typedef gsl_vector_long_double *vector_t;
 #define N_PTS 401
 #define STEP (1.0L * (X_F - X_I) / (N_PTS - 1))
 
-
 #endif // CONSTS_H

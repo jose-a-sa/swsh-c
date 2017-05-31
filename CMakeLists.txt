@@ -15,10 +15,10 @@ if(UNIX)
     SET(CMAKE_CXX_FLAGS "-std=c++11 -Wimplicit-function-declaration")
     SET(OS_INCLUDE_DIRS "/usr/include" "/usr/local/include")
     SET(OS_LIB_DIRS "/usr/lib" "/usr/local/lib")
-    #SET(CMAKE_C_COMPILER "x86_64-w64-mingw32-gcc")
 elseif(WIN32)
     SET(CMAKE_CXX_FLAGS "-posix -std=c++11 -Wimplicit-function-declaration")
-    SET(OS_INCLUDE_DIRS "c:/msys2/mingw64/include")    
+    SET(OS_INCLUDE_DIRS "c:/msys2/mingw64/include")
+    SET(OS_INCLUDE_DIRS "c:/msys2/mingw64/lib")      
 endif()
 
 INCLUDE_DIRECTORIES("${CMAKE_BINARY_DIR}/../include" ${OS_INCLUDE_DIRS})
@@ -30,10 +30,8 @@ SET(TENSOR3_SRC
     src/gsl/gsl_tensor3.c
     src/gsl/gsl_tensor3_long_double.c           
 )
-SET(EQ_SRC
+SET(SWSH_SRC
     src/swsh.c
-)
-SET(MAIN_SRC
     src/test.c
     src/main.c
 )
@@ -44,5 +42,5 @@ ADD_LIBRARY(gsl-tensor3 STATIC ${TENSOR3_SRC})
 
 
 # Sencodly build/link the execuatables (order is important)
-ADD_EXECUTABLE(swsh ${MAIN_SRC} ${EQ_SRC})
+ADD_EXECUTABLE(swsh ${SWSH_SRC})
 TARGET_LINK_LIBRARIES(swsh gsl-tensor3 m gsl gslcblas)
