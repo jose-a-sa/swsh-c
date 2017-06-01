@@ -1,7 +1,5 @@
 # Spin-Weighted Spheroidal Harmonics 
 
-## Description 
-
 Relaxation method for obtaining Spin-Weighted Spheroidal Harmonics given by the angular Teukolsky equation
 
 ## Project status
