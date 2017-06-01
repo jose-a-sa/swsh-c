@@ -38,8 +38,7 @@
             "name": "Win32",
             "includePath": [
                 "${workspaceRoot}",
-                "c:/MinGW/include",
-                "C:/MinGW/lib/gcc/mingw32/5.3.0/include",
+                "c:/msys64/mingw64/include",
                 "${workspaceRoot}/include"
             ],
             "defines": [
@@ -47,7 +46,7 @@
                 "UNICODE"
             ],
             "browse": {
-                "path": ["c:/MinGW/include"],
+                "path": ["c:/msys64/mingw64/include"],
                 "limitSymbolsToIncludedHeaders": true,
                 "databaseFilename": ""
             }

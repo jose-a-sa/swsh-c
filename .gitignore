@@ -2,6 +2,7 @@
 bin/*
 **/*.nb
 data/*
+Other/*
 
 CMakeCache.txt
 CMakeFiles

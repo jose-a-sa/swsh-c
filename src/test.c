@@ -3,9 +3,9 @@
 
 #include <math.h>
 
-#include <consts.h>
+#include <const.h>
 #include <test.h>
-#include <funcs.h>
+#include <swsh.h>
 
 #define MAX_ERROR 0.00001
 
@@ -54,8 +54,8 @@ bool test_atomic(bool verbose)
 
     test_title("Size of atomic types", verbose);
 
-    test &= test_unit(sizeof(ldouble_t) == 16, "sizeof(long long double)==16", verbose);
-    test &= test_unit(sizeof(ldouble_t) >= 12, "sizeof(long long double)>=12", verbose);
+    test &= test_unit(sizeof(real_t) == 16, "sizeof(long long double)==16", verbose);
+    test &= test_unit(sizeof(real_t) >= 12, "sizeof(long long double)>=12", verbose);
 
     test_print(test, verbose);
     return test;
@@ -98,10 +98,9 @@ bool test_Yslm(bool verbose)
     const int s_test[] = { 1,  1, -4, -1};
     const int l_test[] = { 3,  6,  5,  3};
     const int m_test[] = { 2,  5,  2, -3};
-    ldouble_t x_test[] = {0.1, -0.2, 0.3, -0.4};
-
-    ldouble_t Y_value[] = {0.343445, 0.057114, -0.155762, -0.42492};
-    ldouble_t YPrime_value[] = {0.376269, -1.71342, 1.42068, -0.101171};
+    real_t x_test[] = {0.1, -0.2, 0.3, -0.4};
+    real_t Y_value[] = {0.343445, 0.057114, -0.155762, -0.42492};
+    real_t YPrime_value[] = {0.376269, -1.71342, 1.42068, -0.101171};
 
     test_title("Spin-Weighted Spherical Harmonics", verbose);
 
@@ -109,7 +108,7 @@ bool test_Yslm(bool verbose)
     for (i = 0; i < LEN(s_test); i++)
     {
         if (verbose) printf("\t");
-        sprintf(buf, "Yslm(%d,%d,%d,%.1Lf)", s_test[i], l_test[i], m_test[i], x_test[i]);
+        sprintf(buf, "Yslm(%2d,%2d,%2d,%4.1Lf)", s_test[i], l_test[i], m_test[i], x_test[i]);
         check_buf = test_unit(fabsl(Yslm(s_test[i], l_test[i], m_test[i], x_test[i]) / Y_value[i] - 1) < MAX_ERROR, buf, verbose);
         test &= check_buf;
     }
@@ -118,7 +117,7 @@ bool test_Yslm(bool verbose)
     for (i = 0; i < LEN(s_test); i++)
     {
         if (verbose) printf("\t");
-        sprintf(buf, "YslmPrime(%d,%d,%d,%.1Lf)", s_test[i], l_test[i], m_test[i], x_test[i]);
+        sprintf(buf, "YslmPrime(%2d,%2d,%2d,%4.1Lf)", s_test[i], l_test[i], m_test[i], x_test[i]);
         check_buf = test_unit(fabsl(YslmPrime(s_test[i], l_test[i], m_test[i], x_test[i]) / YPrime_value[i] - 1) < MAX_ERROR, buf, verbose);
         test &= check_buf;
     }
@@ -137,9 +136,8 @@ bool test_BC(bool verbose)
     const int s_test[] = { 1,  1, -4, -1};
     const int l_test[] = { 3,  6,  5,  3};
     const int m_test[] = { 2,  5,  2, -3};
-
-    ldouble_t BClimYp_value[] = {1.18009, -1.80754, 0.607692, -0.361326};
-    ldouble_t BClimYm_value[] = {-0.590044, 1.2911, -1.41795, -0.361326};
+    real_t BClimZp_value[] = {1.18009, -1.80754, 0.607692, -0.361326};
+    real_t BClimZm_value[] = {-0.590044, 1.2911, -1.41795, -0.361326};
 
     test_title("Boundary conditions", verbose);
 
@@ -147,8 +145,8 @@ bool test_BC(bool verbose)
     for (i = 0; i < LEN(s_test); i++)
     {
         if (verbose) printf("\t");
-        sprintf(buf, "BClimYm(%d,%d,%d)", s_test[i], l_test[i], m_test[i]);
-        check_buf = test_unit(fabsl(BClimYm(s_test[i], l_test[i], m_test[i]) / BClimYm_value[i] - 1) < MAX_ERROR, buf, verbose);
+        sprintf(buf, "BClimZm(%2d,%2d,%2d)", s_test[i], l_test[i], m_test[i]);
+        check_buf = test_unit(fabsl(BClimZm(s_test[i], l_test[i], m_test[i]) / BClimZm_value[i] - 1) < MAX_ERROR, buf, verbose);
         test &= check_buf;
     }
 
@@ -156,12 +154,23 @@ bool test_BC(bool verbose)
     for (i = 0; i < LEN(s_test); i++)
     {
         if (verbose) printf("\t");
-        sprintf(buf, "BClimYp(%d,%d,%d)", s_test[i], l_test[i], m_test[i]);
-        check_buf &= test_unit(fabsl(BClimYp(s_test[i], l_test[i], m_test[i]) / BClimYp_value[i] - 1) < MAX_ERROR, buf, verbose);
+        sprintf(buf, "BClimZp(%2d,%2d,%2d)", s_test[i], l_test[i], m_test[i]);
+        check_buf &= test_unit(fabsl(BClimZp(s_test[i], l_test[i], m_test[i]) / BClimZp_value[i] - 1) < MAX_ERROR, buf, verbose);
         test &= check_buf;
     }
 
     test_print(test, verbose);
 
     return test;
+}
+
+void show_const()
+{
+    printf("DEFINED CONSTANTS:\n");
+
+    printf(" > Size of the mesh: %d\n", N_PTS);
+    printf(" > Mech configuration Xi, Xf, step: %Lf, %Lf, %Lf\n", 1.0L* X_I, 1.0L*X_F, STEP);
+
+    printf(" > Number of equations: %d\n", N_EQS);
+    printf(" > Boundary conditions at Xi, Xf: %d, %d\n", BC_I, BC_F);
 }
