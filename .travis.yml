@@ -4,9 +4,8 @@ dist: trusty
 
 language: c
 
-compiler:  
+compiler:
     - gcc
-    - clang
 
 before_script:
     - sudo apt-get -qq update && sudo apt-get install -y libgsl0-dev
