@@ -4,6 +4,11 @@ dist: trusty
 
 language: c
 
+branches:
+  only:
+  - master
+  - develop
+
 compiler:
     - gcc
 
