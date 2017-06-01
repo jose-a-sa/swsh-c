@@ -1,14 +1,15 @@
 sudo: required
 
-dist: xenial
+dist: trusty
 
 language: c
 
 compiler:  
     - gcc
+    - clang
 
 before_script:
-    - sudo apt-get -qq update && sudo apt-get install -y libgsl-dev
+    - sudo apt-get -qq update && sudo apt-get install -y libgsl0-dev
     - mkdir _build
     - cd _build
     - cmake ..
