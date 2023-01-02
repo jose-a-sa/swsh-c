@@ -1,16 +1,33 @@
 {
-    "files.exclude": {
-        "**/.git": true,
-        "**/.svn": true,
-        "**/.hg": true,
-        "**/CVS": true,
-        "**/.DS_Store": true,
-        "Other": true
-    },
     "files.associations": {
-        "cstdlib": "cpp",
-        "system_error": "cpp",
-        "type_traits": "cpp",
-        "initializer_list": "cpp"
+        "*.drawio": "xml",
+        "*.m": "octave",
+        ".prettierrc": "yaml",
+        "random": "c",
+        "tgmath.h": "c",
+        "stdint.h": "c",
+        "math.h": "c",
+        "gsl_errno.h": "c",
+        "filesystem": "c",
+        "ios": "c",
+        "locale": "c",
+        "*.tcc": "c",
+        "functional": "c",
+        "type_traits": "c",
+        "stdbool.h": "c",
+        "atomic": "c",
+        "bitset": "c",
+        "const.h": "c",
+        "vector": "c",
+        "__bit_reference": "c",
+        "chrono": "c",
+        "map": "c",
+        "set": "c",
+        "unordered_map": "c",
+        "unordered_set": "c",
+        "algorithm": "c",
+        "__locale": "c",
+        "swsh.h": "c",
+        "stdio.h": "c"
     }
 }

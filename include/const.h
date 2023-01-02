@@ -4,38 +4,57 @@
 #include <gsl/gsl_matrix_long_double.h>
 #include <gsl/gsl_vector_long_double.h>
 
-typedef long double real_t;
-typedef gsl_matrix_long_double *matrix_t;
-typedef gsl_vector_long_double *vector_t;
+typedef long double ldouble_t;
+typedef gsl_matrix_long_double* matrix_t;
+typedef gsl_vector_long_double* vector_t;
 
-#define MATRIX_GET gsl_matrix_long_double_get
-#define MATRIX_SET gsl_matrix_long_double_set
-#define MATRIX_ALLOC gsl_matrix_long_double_alloc
-#define MATRIX_FREE gsl_matrix_long_double_free
+#define matrix_get gsl_matrix_long_double_get
+#define matrix_set gsl_matrix_long_double_set
+#define matrix_alloc gsl_matrix_long_double_calloc
+#define matrix_free gsl_matrix_long_double_free
+#define matrix_set_row gsl_matrix_long_double_set_row
+#define matrix_set_col gsl_matrix_long_double_set_col
+#define matrix_set_all gsl_matrix_long_double_set_all
+#define matrix_col gsl_matrix_long_double_col
+#define matrix_row gsl_matrix_long_double_row
 
-#define VECTOR_GET gsl_vector_long_double_get
-#define VECTOR_SET gsl_vector_long_double_set
-#define VECTOR_ALLOC gsl_vector_long_double_calloc
-#define VECTOR_FREE gsl_vector_long_double_free
+#define vector_get gsl_vector_long_double_get
+#define vector_set gsl_vector_long_double_set
+#define vector_alloc gsl_vector_long_double_calloc
+#define vector_free gsl_vector_long_double_free
+#define vector_set_all gsl_vector_long_double_set_all
 
 // General functions
 #define LEN(x) (sizeof(x) / sizeof((x)[0]))
 #define MAX(a, b) ({ __typeof__ (a) _a = (a); __typeof__ (b) _b = (b); _a > _b ? _a : _b; })
 #define MIN(a, b) ({ __typeof__ (a) _a = (a); __typeof__ (b) _b = (b); _a < _b ? _a : _b; })
-#define FRAC(a, b) ({ __typeof__ (a) _a = (a); __typeof__ (b) _b = (b); ((1.0L * _a)/(1.0L * _b)); })
+
+// General contants
+#define ZERO_EPS 1e-10L
+#define SAME_REL_EPS 1e-5L
 
 // Numerical contants
 #define PI 3.1415926535897932385L
 
 // Related to differential equation
 #define N_EQS 3
-#define X_I -1.0
-#define X_F 1.0
+#define X_I -1.0L
+#define X_F 1.0L
 #define BC_I 1
-#define BC_F 2 // (N_EQS - BC_I)
+#define BC_F 2
 
 // Related to the relaxation method
 #define N_PTS 401
-#define STEP (1.0L * (X_F - X_I) / (N_PTS - 1))
+#define STEP (1.0L * ((X_F) - (X_I)) / (N_PTS - 1))
+#define CONV_EPS 1e-8L
+#define CONTROL_ERR 0.1L
+#define ITER_MAX 1000
+
+//LOG FLAGS
+#define NO_LOG 0
+#define LOG_SMATRIX (1<<0)
+#define LOG_SMATRIX_GAUSS (1<<1)
+#define LOG_DELTA_Y (1<<2)
+#define PRINT_ERROR (1<<3)
 
 #endif // CONSTS_H

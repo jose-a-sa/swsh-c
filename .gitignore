@@ -1,5 +1,6 @@
 #Project related
-bin/*
+build/*
+bin/log/*
 **/*.nb
 data/*
 Other/*

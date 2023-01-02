@@ -13,8 +13,8 @@ void test_print(bool, bool);
 bool test_atomic(bool);
 bool test_factorial(bool);
 bool test_binomial(bool);
-bool test_Yslm(bool);
 bool test_BC(bool);
+bool test_Yslm(bool);
 void show_const();
 
 #endif // TEST_H

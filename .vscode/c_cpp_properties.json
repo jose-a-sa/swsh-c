@@ -3,53 +3,19 @@
         {
             "name": "Mac",
             "includePath": [
-                "${workspaceRoot}",
-                "/usr/include",
-                "/usr/local/include"
+                "${workspaceFolder}/include",
+                "/opt/homebrew/include"
             ],
             "defines": [],
-            "browse": {
-                "path": [
-                    "/usr/include",
-                    "/usr/local/include"
-                ],
-                "limitSymbolsToIncludedHeaders": true,
-                "databaseFilename": ""
-            }
-        },
-        {
-            "name": "Linux",
-            "includePath": [
-                "${workspaceRoot}",
-                "/usr/include",
-                "/usr/local/include"
+            "macFrameworkPath": [
+                "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks"
             ],
-            "defines": [],
-            "browse": {
-                "path": [
-                    "/usr/include",
-                    "/usr/local/include"
-                ],
-                "limitSymbolsToIncludedHeaders": true,
-                "databaseFilename": ""
-            }
-        },
-        {
-            "name": "Win32",
-            "includePath": [
-                "${workspaceRoot}",
-                "c:/msys64/mingw64/include",
-                "${workspaceRoot}/include"
-            ],
-            "defines": [
-                "_DEBUG",
-                "UNICODE"
-            ],
-            "browse": {
-                "path": ["c:/msys64/mingw64/include"],
-                "limitSymbolsToIncludedHeaders": true,
-                "databaseFilename": ""
-            }
+            "compilerPath": "/usr/bin/clang",
+            "cStandard": "c11",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "macos-gcc-arm64",
+            "configurationProvider": "ms-vscode.cmake-tools"
         }
-    ]
+    ],
+    "version": 4
 }

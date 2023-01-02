@@ -11,12 +11,16 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/../bin")
 
 
 # OS specific variables
-if(UNIX)
-    SET(CMAKE_CXX_FLAGS "-std=c++11 -Wimplicit-function-declaration")
+if(APPLE)
+    SET(CMAKE_CXX_FLAGS "-Wimplicit-function-declaration")
+    SET(OS_INCLUDE_DIRS "/usr/include" "/usr/local/include" "/opt/homebrew/include")
+    SET(OS_LIB_DIRS "/usr/lib" "/usr/local/lib" "/opt/homebrew/lib")
+elseif(UNIX)
+    SET(CMAKE_CXX_FLAGS "-Wimplicit-function-declaration")
     SET(OS_INCLUDE_DIRS "/usr/include" "/usr/local/include")
     SET(OS_LIB_DIRS "/usr/lib" "/usr/local/lib")
 elseif(WIN32)
-    SET(CMAKE_CXX_FLAGS "-posix -std=c++11 -Wimplicit-function-declaration")
+    SET(CMAKE_CXX_FLAGS "-Wimplicit-function-declaration")
     SET(OS_INCLUDE_DIRS "c:/msys2/mingw64/include")
     SET(OS_INCLUDE_DIRS "c:/msys2/mingw64/lib")      
 endif()
@@ -26,21 +30,12 @@ LINK_DIRECTORIES("${CMAKE_BINARY_DIR}/../lib" ${OS_LIB_DIRS})
 
 
 # Source related variables
-SET(TENSOR3_SRC
-    src/gsl/gsl_tensor3.c
-    src/gsl/gsl_tensor3_long_double.c           
-)
 SET(SWSH_SRC
     src/swsh.c
     src/test.c
     src/main.c
+    src/utils.c
 )
 
-
-# First build the libraries
-ADD_LIBRARY(gsl-tensor3 STATIC ${TENSOR3_SRC})
-
-
-# Sencodly build/link the execuatables (order is important)
 ADD_EXECUTABLE(swsh ${SWSH_SRC})
-TARGET_LINK_LIBRARIES(swsh gsl-tensor3 m gsl gslcblas)
+TARGET_LINK_LIBRARIES(swsh m gsl gslcblas)

@@ -1,13 +1,12 @@
 sudo: required
 
-dist: trusty
+dist: jammy
 
 language: c
 
 branches:
   only:
   - master
-  - develop
 
 compiler:
     - gcc
