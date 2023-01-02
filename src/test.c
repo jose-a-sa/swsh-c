@@ -1,6 +1,3 @@
-// fix to long long double problem with MinGW
-#define __USE_MINGW_ANSI_STDIO 1
-
 #include <math.h>
 
 #include "const.h"
