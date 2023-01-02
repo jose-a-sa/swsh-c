@@ -381,7 +381,7 @@ void block_gauss_pivot(matrix_t s)
         }
 
         if (row != idx_max)
-            gsl_matrix_long_double_swap_rows(s, row, idx_max);
+            matrix_swap_rows(s, row, idx_max);
 
         for (size_t j = 0; j < s->size2; j++)
             matrix_set(s, row, j, matrix_get(s, row, j) / piv);
@@ -620,10 +620,8 @@ void desolve_relaxation(vector_t X, matrix_t Y, int s, int l, int m, ldouble_t c
             printf("(s, l, m, c): (%d, %d, %d, %Lf), err(%lu): %Lf \n", s, l, m, c, iter, err);
 
         ldouble_t factor = (err > CONTROL_ERR) ? (CONTROL_ERR / err) : 1.0;
-
-        for (size_t i = 0; i < Y->size1; i++)
-            for (size_t j = 0; j < Y->size2; j++)
-                matrix_set(Y, i, j, matrix_get(Y, i, j) + factor * matrix_get(delta_Y, i, j));
+        matrix_scale(delta_Y, factor);
+        matrix_add(Y, delta_Y);
 
         for (size_t k = 0; k <= M; k++)
             matrix_free(smatrix[k]);

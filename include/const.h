@@ -15,8 +15,12 @@ typedef gsl_vector_long_double* vector_t;
 #define matrix_set_row gsl_matrix_long_double_set_row
 #define matrix_set_col gsl_matrix_long_double_set_col
 #define matrix_set_all gsl_matrix_long_double_set_all
-#define matrix_col gsl_matrix_long_double_col
+#define matrix_swap_rows gsl_matrix_long_double_swap_rows
+#define matrix_swap_columns gsl_matrix_long_double_swap_columns
+#define matrix_column gsl_matrix_long_double_column
 #define matrix_row gsl_matrix_long_double_row
+#define matrix_scale gsl_matrix_long_double_scale
+#define matrix_add gsl_matrix_long_double_add
 
 #define vector_get gsl_vector_long_double_get
 #define vector_set gsl_vector_long_double_set
